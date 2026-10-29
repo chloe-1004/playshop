@@ -18,15 +18,9 @@
      * .page: 풀 너비, 배경 레이어를 여기에 적용
      *
      * 배경 레이어 구조 (위→아래):
-     *  1. bg_ellipses.png – 피그마 bg FRAME의 컬러 라디얼 그라디언트 (30% opacity)
+     *  1. bg_ellipses.png – cover로 뷰포트 전체 채움 (컬러 라디얼 그라디언트)
      *  2. linear-gradient – y=575px 이후부터 #fff4ea 크림 배경 시작
      *  3. background-color: #ffffff – 흰색 베이스
-     *
-     * bg_ellipses 가로 오프셋 계산:
-     *   bg frame left = main frame left + 300px (x_rel=300)
-     *   content (400px) left = main frame left + 312px (x_rel=312)
-     *   → bg frame은 content 기준 12px 왼쪽에서 시작
-     *   → 임의 뷰포트 너비 W: content left = (W-400)/2 → bg position X = calc(50% - 212px)
      */
     .page {
       width: 100%;
@@ -34,8 +28,8 @@
       background-image:
         url(assets/bg_ellipses.png),
         linear-gradient(to bottom, transparent 0px, transparent 574px, #fff4ea 575px);
-      background-position: calc(50% - 212px) 0px, 0 0;
-      background-size: 1280px auto, 100% 100%;
+      background-position: center top, 0 0;
+      background-size: cover, 100% 100%;
       background-repeat: no-repeat;
     }
 
@@ -115,6 +109,9 @@
       color: #0a73dc;
       line-height: 24px;
       margin-bottom: 20px;
+    }
+    .banner-info strong {
+      font-weight: 600;
     }
     .banner-divider {
       border: none;
@@ -306,30 +303,34 @@
 
     /*
      * ── 하단 일러스트 ──
-     * Figma 좌표(1024px 프레임 기준, 콘텐츠 400px left=312):
-     *   illust_b (Group 2147205850, x_rel=0):   left = 0-312   = -312px
-     *   illust_t (Group 2147205843, x_rel=100): left = 100-312 = -212px
-     *   두 이미지 CSS 1x 폭: illust_b=759px, illust_t=997px
+     * 피그마 1024px 프레임 기준:
+     *   illust_b (x_rel=0,  w=759): 왼쪽 끝 앵커, 뷰포트의 74.1% (759/1024)
+     *   illust_t (x_rel=100, w=997): 오른쪽 끝 앵커, 뷰포트의 97.4% (997/1024)
+     * wrapper 높이: illust_t 비율 기반 (477/1024 ≈ 46.6% padding-bottom)
+     * → 뷰포트 너비에 따라 전체 스케일 가변
      */
     .illusts-wrapper {
       position: relative;
       width: 100%;
-      height: 260px;
+      height: 0;
+      padding-bottom: 46.6%;   /* 477/1024: illust_t 높이 비율 */
       overflow: hidden;
       margin-top: 20px;
     }
     .illust-b {
       position: absolute;
       bottom: 0;
-      left: -312px;
-      width: 759px;
+      left: 0;
+      width: 74.1%;            /* 759/1024 */
+      height: auto;
       max-width: none;
     }
     .illust-t {
       position: absolute;
       bottom: 0;
-      left: -212px;
-      width: 997px;
+      right: 0;
+      width: 97.4%;            /* 997/1024 */
+      height: auto;
       max-width: none;
     }
 
@@ -384,8 +385,8 @@
         <div class="section-body">
           <div class="banner-card">
             <p class="banner-info">
-              📆 일시&nbsp;&nbsp;2026.11.12 07:30 ~ 21:30<br>
-              📍목적지&nbsp;&nbsp;경주
+              📆 <strong>일시</strong>&nbsp;&nbsp;2026.11.12 07:30 ~ 21:30<br>
+              📍<strong>목적지</strong>&nbsp;&nbsp;경주
             </p>
             <hr class="banner-divider">
             <p class="prep-title">준비물</p>
