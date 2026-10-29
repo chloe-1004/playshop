@@ -2,87 +2,91 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>2026 하반기 플레이샵</title>
-  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/npm/pretendard@1.3.9/dist/web/static/pretendard.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretendard@1.3.9/dist/web/static/pretendard.min.css">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+    /*
+     * 배경: html에 #fff4ea 기본색,
+     * body에 위쪽부터 흰색 → 575px 부근에서 크림색으로 전환하는 no-repeat 그라디언트
+     * → 400px 컨테이너 바깥(넓은 화면)까지 full-width로 확장됨
+     */
+    html {
+      background: #fff4ea;
+    }
+
     body {
-      background: #ffffff;
       font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
       -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      background-color: #fff4ea;
+      background-image: linear-gradient(to bottom,
+        #ffffff    0px,
+        #ffffff  475px,
+        transparent 575px
+      );
+      background-repeat: no-repeat;
     }
 
+    /* 콘텐츠 컨테이너: 반응형, 최대 400px 중앙 정렬 */
     .page {
+      width: 100%;
       max-width: 400px;
       margin: 0 auto;
-      position: relative;
-      overflow: hidden;
-      /* White at top, warm cream after ~575px */
-      background: linear-gradient(
-        to bottom,
-        #ffffff 0px,
-        #ffffff 574px,
-        #fff4ea 575px
-      );
     }
 
-    /* ── Header ── */
+    /* ── 헤더 ── */
     .header {
-      width: 100%;
       padding-top: 20px;
     }
-
     .header img {
       width: 100%;
       display: block;
     }
 
-    /* ── Intro ── */
+    /* ── 인트로 ── */
     .intro {
-      padding: 20px 24px 24px;
+      padding: 20px 20px 16px;
+      text-align: center;
     }
-
     .intro-title {
       font-size: 24px;
       font-weight: 700;
       color: #354050;
       line-height: 1.4;
-      text-align: center;
       margin-bottom: 14px;
     }
-
     .intro-desc {
-      font-size: 15px;
+      font-size: 16px;
       font-weight: 400;
       color: #354050;
       line-height: 1.75;
-      text-align: center;
       word-break: keep-all;
     }
 
-    /* ── Section ── */
+    /* ── 섹션 공통 ── */
     .section {
-      padding: 0 20px 16px;
+      padding: 0 20px;
     }
-
     .section-title {
       font-size: 18px;
       font-weight: 600;
       color: #424242;
-      padding: 16px 0 10px;
+      padding: 20px 0 10px;
     }
 
-    /* ── Base card ── */
+    /* ── 카드 공통 ── */
     .card {
       background: #f8fafc;
       border-radius: 12px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
       padding: 16px;
+      margin-bottom: 16px;
     }
 
-    /* ── Banner (date + prep) ── */
+    /* ── 배너 (일정/준비물) ── */
     .banner-info {
       font-size: 16px;
       font-weight: 400;
@@ -90,20 +94,17 @@
       line-height: 1.7;
       margin-bottom: 14px;
     }
-
     .divider {
       border: none;
       border-top: 1px solid #e0e8ee;
-      margin: 0 0 12px;
+      margin-bottom: 12px;
     }
-
     .prep-title {
       font-size: 15px;
       font-weight: 700;
       color: #424242;
       margin-bottom: 6px;
     }
-
     .prep-desc {
       font-size: 15px;
       font-weight: 400;
@@ -112,14 +113,13 @@
       word-break: keep-all;
     }
 
-    /* ── Schedule ── */
+    /* ── 시간표 ── */
     .schedule-row {
       display: flex;
       align-items: flex-start;
       padding: 7px 0;
       border-bottom: 1px solid #f0f0f0;
     }
-
     .schedule-row:last-child { border-bottom: none; }
 
     .schedule-time {
@@ -130,7 +130,6 @@
       flex-shrink: 0;
       line-height: 1.5;
     }
-
     .schedule-time.blue { color: #0a73dc; }
 
     .schedule-activity {
@@ -139,36 +138,32 @@
       color: #191919;
       line-height: 1.5;
     }
-
     .schedule-activity.blue { color: #0a73dc; }
 
-    /* ── Action card (열차 좌석) ── */
+    /* ── 액션 카드 (열차 좌석) ── */
     .action-card {
-      background: rgba(255,255,255,0.8);
+      background: rgba(255, 255, 255, 0.8);
       border-radius: 12px;
       padding: 16px;
     }
-
     .action-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 12px;
     }
-
     .action-title {
       font-size: 16px;
       font-weight: 700;
       color: #191919;
       margin-bottom: 4px;
     }
-
     .action-desc {
       font-size: 13px;
       font-weight: 400;
       color: #595959;
       line-height: 1.55;
     }
-
     .arrow-icon {
       width: 8px;
       height: 8px;
@@ -176,113 +171,106 @@
       border-top: 1.5px solid #595959;
       transform: rotate(45deg);
       flex-shrink: 0;
-      margin-left: 12px;
     }
 
-    /* ── Mission card (blue border) ── */
+    /* ── 미션 카드 (파란 테두리) ── */
     .mission-card {
       background: #f2f8ff;
       border: 1px solid #009ee2;
       border-radius: 12px;
       padding: 16px;
+      margin-bottom: 16px;
     }
-
     .mission-title {
       font-size: 16px;
       font-weight: 700;
       color: #0a73dc;
       margin-bottom: 4px;
     }
-
     .mission-icons {
       display: flex;
       gap: 8px;
       margin-top: 12px;
     }
-
     .mission-icons img {
       width: 40px;
       height: 40px;
     }
 
-    /* ── Café list ── */
+    /* ── 카페 카드 ── */
     .cafe-card {
       background: #ffffff;
       border-radius: 12px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
       padding: 14px 16px;
       margin-bottom: 8px;
     }
-
     .cafe-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
       margin-bottom: 4px;
     }
-
     .cafe-name-row {
       display: flex;
       align-items: center;
       gap: 5px;
     }
-
     .cafe-name {
       font-size: 16px;
       font-weight: 700;
       color: #191919;
     }
-
     .external-link img {
       width: 16px;
       height: 16px;
-      opacity: 0.55;
+      opacity: 0.5;
     }
-
     .cafe-desc {
       font-size: 14px;
       font-weight: 500;
       color: #191919;
-      line-height: 1.55;
+      line-height: 1.6;
       word-break: keep-all;
     }
 
-    /* ── Bottom illustrations ──
-       Both groups sit at the bottom of the 1024px Figma frame.
-       Content 400px area is centered at x=312 within the 1024px frame.
-       illust_bottom (Group 2147205850): x_rel=0  → left = 0-312 = -312px
-       illust_top    (Group 2147205843): x_rel=100 → left = 100-312 = -212px
-       Both bottom-align (both bottom edges ≈ y=2532 in the 2576px design).
-    ── */
+    /*
+     * ── 하단 일러스트 ──
+     * Figma 좌표 기준 (main frame x=-25838, 콘텐츠 400px left=312):
+     *   illust_bottom (x_rel=0):   left = 0-312   = -312px
+     *   illust_top    (x_rel=100): left = 100-312 = -212px
+     * 두 이미지 CSS display width = Figma 1x 크기 (이미지는 @2x 저장)
+     *   illust_bottom: 759px  illust_top: 997px
+     * overflow:hidden을 illusts-wrapper에만 걸어 .page는 반응형 유지
+     */
     .illusts-wrapper {
       position: relative;
       width: 100%;
       height: 260px;
       overflow: hidden;
-      margin-top: 8px;
+      margin-top: 20px;
     }
-
     .illust-b {
       position: absolute;
       bottom: 0;
       left: -312px;
-      width: 759px;      /* design 1x width */
+      width: 759px;
       max-width: none;
     }
-
     .illust-t {
       position: absolute;
       bottom: 0;
       left: -212px;
-      width: 997px;      /* design 1x width */
+      width: 997px;
       max-width: none;
     }
 
-    /* ── CTA Button ── */
+    /* ── CTA 버튼 ── */
     .btn-cta {
       display: block;
       margin: 0 20px 40px;
       padding: 15px 20px;
+      width: calc(100% - 40px);
       background: #191919;
       color: #fffdfb;
       border: none;
@@ -292,22 +280,20 @@
       font-weight: 500;
       text-align: center;
       cursor: pointer;
-      width: calc(100% - 40px);
       letter-spacing: -0.01em;
     }
-
-    .btn-cta:active { background: #333333; }
+    .btn-cta:active { background: #333; }
   </style>
 </head>
 <body>
   <div class="page">
 
-    <!-- Header (TalkCloud logo + 가을 side decorations) -->
+    <!-- 헤더: TalkCloud 로고 + 양쪽 가을 장식 -->
     <div class="header">
       <img src="assets/header.png" alt="TalkCloud 2026 하반기 플레이샵">
     </div>
 
-    <!-- Intro -->
+    <!-- 인트로 -->
     <div class="intro">
       <h1 class="intro-title">🍁 톡클라우드 스쿼드 가을 수학여행 🍂</h1>
       <p class="intro-desc">
@@ -379,7 +365,7 @@
     <!-- 열차 좌석 확인 / 미션 조 확인 -->
     <div class="section">
       <h2 class="section-title">열차 좌석 확인 / 미션 조 확인</h2>
-      <div class="card" style="padding:0;">
+      <div class="card" style="padding: 0; margin-bottom: 16px;">
         <div class="action-card">
           <div class="action-row">
             <div>
@@ -407,7 +393,7 @@
               확인 후 안내에 따라 미션을 수행해주세요
             </div>
           </div>
-          <div class="arrow-icon" style="border-color:#009ee2;"></div>
+          <div class="arrow-icon" style="border-color: #009ee2;"></div>
         </div>
         <div class="mission-icons">
           <img src="assets/icon_pictures.svg" alt="사진">
@@ -474,7 +460,7 @@
         </p>
       </div>
 
-      <div class="cafe-card">
+      <div class="cafe-card" style="margin-bottom: 0;">
         <div class="cafe-header">
           <div class="cafe-name-row">
             <span>🥖</span>
@@ -490,18 +476,15 @@
     </div>
 
     <!--
-      Bottom illustrations.
-      Both positioned relative to the 400px content area (centered at x=312 in the 1024px Figma frame).
-      illust_b: Figma x_rel=0  → css left = 0-312 = -312px
-      illust_t: Figma x_rel=100 → css left = 100-312 = -212px
-      Both bottom-align (y_bottom ≈ 2532 in the 2576px Figma frame).
+      하단 일러스트 (두 개 모두)
+      overflow:hidden을 이 wrapper에만 적용해 .page는 반응형 유지
     -->
     <div class="illusts-wrapper">
       <img class="illust-b" src="assets/illust_bottom.png" alt="">
       <img class="illust-t" src="assets/illust_top.png" alt="">
     </div>
 
-    <!-- CTA -->
+    <!-- 플준위에게 편지 남기기 -->
     <button class="btn-cta">플준위에게 편지 남기기</button>
 
   </div>
