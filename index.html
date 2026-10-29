@@ -28,14 +28,15 @@
       background-image:
         url(assets/bg_ellipses.png),
         linear-gradient(to bottom, transparent 0px, transparent 574px, #fff4ea 575px);
-      background-position: center top, 0 0;
-      background-size: cover, 100% 100%;
+      background-position: 0 0, 0 0;
+      background-size: 100% auto, 100% 100%;
       background-repeat: no-repeat;
     }
 
-    /* ── 헤더: 뷰포트 100% 너비로 반응형 ── */
+    /* ── 헤더: 뷰포트 100% 너비로 반응형, 상단 40px 여백 ── */
     .header {
       width: 100%;
+      padding-top: 40px;
     }
     .header img {
       width: 100%;
@@ -105,13 +106,10 @@
     }
     .banner-info {
       font-size: 16px;
-      font-weight: 400;
+      font-weight: 600;
       color: #0a73dc;
       line-height: 24px;
       margin-bottom: 20px;
-    }
-    .banner-info strong {
-      font-weight: 600;
     }
     .banner-divider {
       border: none;
@@ -315,7 +313,6 @@
       height: 0;
       padding-bottom: 46.6%;   /* 477/1024: illust_t 높이 비율 */
       overflow: hidden;
-      margin-top: 20px;
     }
     .illust-b {
       position: absolute;
@@ -385,8 +382,8 @@
         <div class="section-body">
           <div class="banner-card">
             <p class="banner-info">
-              📆 <strong>일시</strong>&nbsp;&nbsp;2026.11.12 07:30 ~ 21:30<br>
-              📍<strong>목적지</strong>&nbsp;&nbsp;경주
+              📆 일시&nbsp;&nbsp;2026.11.12 07:30 ~ 21:30<br>
+              📍목적지&nbsp;&nbsp;경주
             </p>
             <hr class="banner-divider">
             <p class="prep-title">준비물</p>
@@ -560,16 +557,19 @@
         </div>
       </div>
 
-      <!-- 하단 일러스트 -->
-      <div class="illusts-wrapper">
-        <img class="illust-b" src="assets/illust_bottom.png" alt="">
-        <img class="illust-t" src="assets/illust_top.png" alt="">
-      </div>
-
-      <!-- CTA -->
-      <button class="btn-cta">플준위에게 편지 남기기</button>
-
     </div><!-- /content -->
+
+    <!-- CTA: content 너비(400px)로 중앙 정렬, content 밖 full-width page 안 -->
+    <div style="max-width:400px; margin:0 auto; padding:0 20px;">
+      <button class="btn-cta" style="margin:0 0 20px; width:100%;">플준위에게 편지 남기기</button>
+    </div>
+
+    <!-- 하단 일러스트: .content 밖 full-width, 뷰포트 전체 너비로 가변 -->
+    <div class="illusts-wrapper">
+      <img class="illust-b" src="assets/illust_bottom.png" alt="">
+      <img class="illust-t" src="assets/illust_top.png" alt="">
+    </div>
+
   </div><!-- /page -->
 </body>
 </html>
