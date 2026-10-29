@@ -4,76 +4,44 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
   <title>2026 하반기 플레이샵</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/npm/pretendard@1.3.9/dist/web/static/pretendard.min.css">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      background: #fff4ea;
-      font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+      background: #ffffff;
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
       -webkit-font-smoothing: antialiased;
     }
 
     .page {
       max-width: 400px;
       margin: 0 auto;
-      background: #fff4ea;
-      min-height: 100vh;
       position: relative;
       overflow: hidden;
+      /* White at top, warm cream after ~575px */
+      background: linear-gradient(
+        to bottom,
+        #ffffff 0px,
+        #ffffff 574px,
+        #fff4ea 575px
+      );
     }
 
-    /* ── Background gradient overlay ── */
-    .page::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 560px;
-      background: linear-gradient(180deg, #fff5ea 0%, rgba(255,222,171,0) 100%);
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    .content {
-      position: relative;
-      z-index: 1;
-    }
-
-    /* ── Header illustration ── */
+    /* ── Header ── */
     .header {
       width: 100%;
       padding-top: 20px;
-      text-align: center;
     }
 
     .header img {
       width: 100%;
-      max-width: 400px;
       display: block;
     }
 
-    /* ── Top illustration (right-heavy autumn scene) ── */
-    .illust-top {
-      position: relative;
-      width: 100%;
-      height: 200px;
-      overflow: visible;
-      pointer-events: none;
-    }
-
-    .illust-top img {
-      position: absolute;
-      right: -30px;
-      bottom: 0;
-      width: 85%;
-      max-width: 340px;
-    }
-
-    /* ── Intro title section ── */
+    /* ── Intro ── */
     .intro {
-      padding: 8px 24px 20px;
+      padding: 20px 24px 24px;
     }
 
     .intro-title {
@@ -94,20 +62,19 @@
       word-break: keep-all;
     }
 
-    /* ── Section wrapper ── */
+    /* ── Section ── */
     .section {
       padding: 0 20px 16px;
     }
 
-    /* ── Section title ── */
     .section-title {
       font-size: 18px;
       font-weight: 600;
       color: #424242;
-      padding: 16px 0 8px;
+      padding: 16px 0 10px;
     }
 
-    /* ── Generic card ── */
+    /* ── Base card ── */
     .card {
       background: #f8fafc;
       border-radius: 12px;
@@ -115,19 +82,19 @@
       padding: 16px;
     }
 
-    /* ── Banner card (date / prep) ── */
+    /* ── Banner (date + prep) ── */
     .banner-info {
       font-size: 16px;
       font-weight: 400;
       color: #0a73dc;
-      line-height: 1.6;
+      line-height: 1.7;
       margin-bottom: 14px;
     }
 
     .divider {
       border: none;
-      border-top: 1px solid #e8e8e8;
-      margin: 12px 0;
+      border-top: 1px solid #e0e8ee;
+      margin: 0 0 12px;
     }
 
     .prep-title {
@@ -149,20 +116,17 @@
     .schedule-row {
       display: flex;
       align-items: flex-start;
-      gap: 0;
-      padding: 6px 0;
+      padding: 7px 0;
       border-bottom: 1px solid #f0f0f0;
     }
 
-    .schedule-row:last-child {
-      border-bottom: none;
-    }
+    .schedule-row:last-child { border-bottom: none; }
 
     .schedule-time {
       font-size: 16px;
       font-weight: 700;
       color: #191919;
-      min-width: 105px;
+      min-width: 108px;
       flex-shrink: 0;
       line-height: 1.5;
     }
@@ -177,18 +141,18 @@
     }
 
     .schedule-activity.blue { color: #0a73dc; }
-    .schedule-activity-sub {
-      font-size: 15px;
-      font-weight: 400;
-      color: #595959;
-      line-height: 1.5;
-    }
 
-    /* ── Action card (열차 좌석 / 조별 미션) ── */
+    /* ── Action card (열차 좌석) ── */
     .action-card {
-      background: #ffffff;
+      background: rgba(255,255,255,0.8);
       border-radius: 12px;
       padding: 16px;
+    }
+
+    .action-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
 
     .action-title {
@@ -202,23 +166,17 @@
       font-size: 13px;
       font-weight: 400;
       color: #595959;
-      line-height: 1.5;
-    }
-
-    .action-arrow {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+      line-height: 1.55;
     }
 
     .arrow-icon {
-      width: 10px;
-      height: 10px;
-      border-right: 2px solid #595959;
-      border-top: 2px solid #595959;
+      width: 8px;
+      height: 8px;
+      border-right: 1.5px solid #595959;
+      border-top: 1.5px solid #595959;
       transform: rotate(45deg);
       flex-shrink: 0;
-      margin-left: 8px;
+      margin-left: 12px;
     }
 
     /* ── Mission card (blue border) ── */
@@ -247,7 +205,7 @@
       height: 40px;
     }
 
-    /* ── Cafe list ── */
+    /* ── Café list ── */
     .cafe-card {
       background: #ffffff;
       border-radius: 12px;
@@ -266,12 +224,7 @@
     .cafe-name-row {
       display: flex;
       align-items: center;
-      gap: 6px;
-    }
-
-    .cafe-emoji {
-      font-size: 14px;
-      line-height: 1;
+      gap: 5px;
     }
 
     .cafe-name {
@@ -280,41 +233,55 @@
       color: #191919;
     }
 
-    .external-link {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 16px;
-      height: 16px;
-      flex-shrink: 0;
-      cursor: pointer;
-      opacity: 0.6;
-    }
-
     .external-link img {
       width: 16px;
       height: 16px;
+      opacity: 0.55;
     }
 
     .cafe-desc {
       font-size: 14px;
       font-weight: 500;
       color: #191919;
-      line-height: 1.5;
+      line-height: 1.55;
       word-break: keep-all;
     }
 
-    /* ── Bottom illustration ── */
-    .illust-bottom {
+    /* ── Bottom illustrations ──
+       Both groups sit at the bottom of the 1024px Figma frame.
+       Content 400px area is centered at x=312 within the 1024px frame.
+       illust_bottom (Group 2147205850): x_rel=0  → left = 0-312 = -312px
+       illust_top    (Group 2147205843): x_rel=100 → left = 100-312 = -212px
+       Both bottom-align (both bottom edges ≈ y=2532 in the 2576px design).
+    ── */
+    .illusts-wrapper {
+      position: relative;
       width: 100%;
-      margin-top: 20px;
-      display: block;
+      height: 260px;
+      overflow: hidden;
+      margin-top: 8px;
+    }
+
+    .illust-b {
+      position: absolute;
+      bottom: 0;
+      left: -312px;
+      width: 759px;      /* design 1x width */
+      max-width: none;
+    }
+
+    .illust-t {
+      position: absolute;
+      bottom: 0;
+      left: -212px;
+      width: 997px;      /* design 1x width */
+      max-width: none;
     }
 
     /* ── CTA Button ── */
     .btn-cta {
       display: block;
-      margin: 0 20px 32px;
+      margin: 0 20px 40px;
       padding: 15px 20px;
       background: #191919;
       color: #fffdfb;
@@ -329,226 +296,214 @@
       letter-spacing: -0.01em;
     }
 
-    .btn-cta:active {
-      background: #333333;
-    }
+    .btn-cta:active { background: #333333; }
   </style>
 </head>
 <body>
   <div class="page">
-    <div class="content">
 
-      <!-- Header -->
-      <div class="header">
-        <img src="assets/header.png" alt="TalkCloud 2026 하반기 플레이샵">
+    <!-- Header (TalkCloud logo + 가을 side decorations) -->
+    <div class="header">
+      <img src="assets/header.png" alt="TalkCloud 2026 하반기 플레이샵">
+    </div>
+
+    <!-- Intro -->
+    <div class="intro">
+      <h1 class="intro-title">🍁 톡클라우드 스쿼드 가을 수학여행 🍂</h1>
+      <p class="intro-desc">
+        선선한 바람과 높아진 하늘이 가을을 알립니다.<br>
+        학창 시절 가을 소풍을 기다리던 설렘을 떠올리며<br>
+        톡클라우드 스쿼드의 가을 플레이샵을 마련하였습니다.<br><br>
+        업무 스트레스는 잠시 뒤로하고 함께 웃고<br>
+        서로를 알아가는 뜻깊은 시간이 될 수 있었으면 합니다.<br><br>
+        크루들의 팀웍 향상을 위해 즐거운 하루를 보낼 수 있도록<br>
+        가정에서도 따뜻한 관심과 격려 부탁드립니다.
+      </p>
+    </div>
+
+    <!-- 수학여행 목적지 / 일정 -->
+    <div class="section">
+      <h2 class="section-title">수학여행 목적지 / 일정</h2>
+      <div class="card">
+        <p class="banner-info">
+          📆 일시&nbsp; 2026.11.12 07:30 ~ 21:30<br>
+          📍목적지&nbsp; 경주
+        </p>
+        <hr class="divider">
+        <p class="prep-title">준비물</p>
+        <p class="prep-desc">
+          • 편한 옷과 운동화 · 따뜻한 겉옷을 준비해 주세요.<br>
+          • 필요한 준비물이 모두 담긴 플레이샵KIT와 반다나를 필수 지참 해주세요.
+        </p>
+      </div>
+    </div>
+
+    <!-- 오늘의 시간표 -->
+    <div class="section">
+      <h2 class="section-title">오늘의 시간표</h2>
+      <div class="card">
+        <div class="schedule-row">
+          <span class="schedule-time blue">7:30</span>
+          <span class="schedule-activity blue">수서역 집결 &amp; 간식 수령</span>
+        </div>
+        <div class="schedule-row">
+          <span class="schedule-time">8:05 -</span>
+          <span class="schedule-activity">경주로 이동</span>
+        </div>
+        <div class="schedule-row">
+          <span class="schedule-time">14:00 - 15:30</span>
+          <span class="schedule-activity">맛도리 점심 식사</span>
+        </div>
+        <div class="schedule-row">
+          <span class="schedule-time">15:30 - 17:00</span>
+          <span class="schedule-activity">조별 미션 &amp; 자유시간</span>
+        </div>
+        <div class="schedule-row">
+          <span class="schedule-time">17:00 - 18:30</span>
+          <span class="schedule-activity">야외 방탈출 겸 동궁과 월지 관광</span>
+        </div>
+        <div class="schedule-row">
+          <span class="schedule-time">19:30 - 21:30</span>
+          <div>
+            <div class="schedule-activity">기차역으로 출발 &amp; 기차 탑승</div>
+            <div class="schedule-activity">열차 내에서 간단한 저녁 식사</div>
+          </div>
+        </div>
+        <div class="schedule-row">
+          <span class="schedule-time blue">21:30</span>
+          <span class="schedule-activity blue">수서역 도착 &amp; 해산</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 열차 좌석 확인 / 미션 조 확인 -->
+    <div class="section">
+      <h2 class="section-title">열차 좌석 확인 / 미션 조 확인</h2>
+      <div class="card" style="padding:0;">
+        <div class="action-card">
+          <div class="action-row">
+            <div>
+              <div class="action-title">열차 좌석 확인</div>
+              <div class="action-desc">
+                15:30부터 조별로 미션을 수행할 예정이에요<br>
+                확인 후 안내에 따라 미션을 수행해주세요
+              </div>
+            </div>
+            <div class="arrow-icon"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 조별 미션 -->
+    <div class="section">
+      <h2 class="section-title">조별 미션</h2>
+      <div class="mission-card">
+        <div class="action-row">
+          <div>
+            <div class="mission-title">조별 미션 확인하기</div>
+            <div class="action-desc">
+              15:30부터 조별로 미션을 수행할 예정이에요<br>
+              확인 후 안내에 따라 미션을 수행해주세요
+            </div>
+          </div>
+          <div class="arrow-icon" style="border-color:#009ee2;"></div>
+        </div>
+        <div class="mission-icons">
+          <img src="assets/icon_pictures.svg" alt="사진">
+          <img src="assets/icon_movie.svg" alt="영상">
+        </div>
+      </div>
+    </div>
+
+    <!-- 카페 & 장소 안내 -->
+    <div class="section">
+      <h2 class="section-title">카페 &amp; 장소 안내</h2>
+
+      <div class="cafe-card">
+        <div class="cafe-header">
+          <div class="cafe-name-row">
+            <span>☕️</span>
+            <span class="cafe-name">테라로사</span>
+          </div>
+          <span class="external-link"><img src="assets/icon_external_link.svg" alt="링크"></span>
+        </div>
+        <p class="cafe-desc">한옥 대형카페, 황남동</p>
       </div>
 
-      <!-- Top illustration -->
-      <div class="illust-top">
-        <img src="assets/illust_top.png" alt="">
-      </div>
-
-      <!-- Intro -->
-      <div class="intro">
-        <h1 class="intro-title">🍁 톡클라우드 스쿼드 가을 수학여행 🍂</h1>
-        <p class="intro-desc">
-          선선한 바람과 높아진 하늘이 가을을 알립니다.<br>
-          학창 시절 가을 소풍을 기다리던 설렘을 떠올리며<br>
-          톡클라우드 스쿼드의 가을 플레이샵을 마련하였습니다.<br><br>
-          업무 스트레스는 잠시 뒤로하고 함께 웃고<br>
-          서로를 알아가는 뜻깊은 시간이 될 수 있었으면 합니다.<br><br>
-          크루들의 팀웍 향상을 위해 즐거운 하루를 보낼 수 있도록<br>
-          가정에서도 따뜻한 관심과 격려 부탁드립니다.
+      <div class="cafe-card">
+        <div class="cafe-header">
+          <div class="cafe-name-row">
+            <span>☕️</span>
+            <span class="cafe-name">1894사랑채</span>
+          </div>
+          <span class="external-link"><img src="assets/icon_external_link.svg" alt="링크"></span>
+        </div>
+        <p class="cafe-desc">
+          황리단길 한옥 카페<br>
+          단체 예약 가능(조별로 온돌룸 예약해도 될 듯)<br>
+          온돌룸(2~10인) 8개, 홀예약(15~20인) 1개
         </p>
       </div>
 
-      <!-- 수학여행 목적지 / 일정 -->
-      <div class="section">
-        <h2 class="section-title">수학여행 목적지 / 일정</h2>
-        <div class="card">
-          <p class="banner-info">
-            📆 일시&nbsp; 2026.11.12 07:30 ~ 21:30<br>
-            📍목적지&nbsp; 경주
-          </p>
-          <hr class="divider">
-          <p class="prep-title">준비물</p>
-          <p class="prep-desc">
-            • 편한 옷과 운동화 · 따뜻한 겉옷을 준비해 주세요.<br>
-            • 필요한 준비물이 모두 담긴 플레이샵KIT와 반다나를 필수 지참 해주세요.
-          </p>
+      <div class="cafe-card">
+        <div class="cafe-header">
+          <div class="cafe-name-row">
+            <span>🥖</span>
+            <span class="cafe-name">최영화빵 황리단길점</span>
+          </div>
+          <span class="external-link"><img src="assets/icon_external_link.svg" alt="링크"></span>
         </div>
+        <p class="cafe-desc">
+          경주빵, 18:00시 영업 종료이므로 미리 사전 주문 필요<br>
+          10개(14,000)
+        </p>
       </div>
 
-      <!-- 오늘의 시간표 -->
-      <div class="section">
-        <h2 class="section-title">오늘의 시간표</h2>
-        <div class="card">
-          <div class="schedule-row">
-            <span class="schedule-time blue">7:30</span>
-            <span class="schedule-activity blue">수서역 집결 &amp; 간식 수령</span>
+      <div class="cafe-card">
+        <div class="cafe-header">
+          <div class="cafe-name-row">
+            <span>🥖</span>
+            <span class="cafe-name">월지빵</span>
           </div>
-          <div class="schedule-row">
-            <span class="schedule-time">8:05 -</span>
-            <span class="schedule-activity">경주로 이동</span>
-          </div>
-          <div class="schedule-row">
-            <span class="schedule-time">14:00 - 15:30</span>
-            <span class="schedule-activity">맛도리 점심 식사</span>
-          </div>
-          <div class="schedule-row">
-            <span class="schedule-time">15:30 - 17:00</span>
-            <span class="schedule-activity">조별 미션 &amp; 자유시간</span>
-          </div>
-          <div class="schedule-row">
-            <span class="schedule-time">17:00 - 18:30</span>
-            <span class="schedule-activity">야외 방탈출 겸 동궁과 월지 관광</span>
-          </div>
-          <div class="schedule-row">
-            <span class="schedule-time">19:30 - 21:30</span>
-            <div>
-              <div class="schedule-activity">기차역으로 출발 &amp; 기차 탑승</div>
-              <div class="schedule-activity">열차 내에서 간단한 저녁 식사</div>
-            </div>
-          </div>
-          <div class="schedule-row">
-            <span class="schedule-time blue">21:30</span>
-            <span class="schedule-activity blue">수서역 도착 &amp; 해산</span>
-          </div>
+          <span class="external-link"><img src="assets/icon_external_link.svg" alt="링크"></span>
         </div>
+        <p class="cafe-desc">
+          월지소금빵, 황리단길 18:00시 영업 종료 &amp; 100박스 한정이므로 사전 주문 필요<br>
+          10개(17,000)
+        </p>
       </div>
 
-      <!-- 열차 좌석 확인 / 미션 조 확인 -->
-      <div class="section">
-        <h2 class="section-title">열차 좌석 확인 / 미션 조 확인</h2>
-        <div class="card" style="padding: 0; overflow: hidden;">
-          <div class="action-card">
-            <div class="action-arrow">
-              <div>
-                <div class="action-title">열차 좌석 확인</div>
-                <div class="action-desc">
-                  15:30부터 조별로 미션을 수행할 예정이에요<br>
-                  확인 후 안내에 따라 미션을 수행해주세요
-                </div>
-              </div>
-              <div class="arrow-icon"></div>
-            </div>
+      <div class="cafe-card">
+        <div class="cafe-header">
+          <div class="cafe-name-row">
+            <span>🥖</span>
+            <span class="cafe-name">경주얼굴빵 황리단길맛집</span>
           </div>
+          <span class="external-link"><img src="assets/icon_external_link.svg" alt="링크"></span>
         </div>
+        <p class="cafe-desc">
+          경주얼굴빵 들고 대릉원 셀피 유명, 황리단길<br>
+          흑임자2+고구마2 = 8,500
+        </p>
       </div>
-
-      <!-- 조별 미션 -->
-      <div class="section">
-        <h2 class="section-title">조별 미션</h2>
-        <div class="card" style="background: #fff; padding: 0; overflow: hidden;">
-          <div class="mission-card">
-            <div class="action-arrow">
-              <div>
-                <div class="mission-title">조별 미션 확인하기</div>
-                <div class="action-desc">
-                  15:30부터 조별로 미션을 수행할 예정이에요<br>
-                  확인 후 안내에 따라 미션을 수행해주세요
-                </div>
-              </div>
-              <div class="arrow-icon" style="border-color: #009ee2;"></div>
-            </div>
-            <div class="mission-icons">
-              <img src="assets/icon_pictures.svg" alt="사진">
-              <img src="assets/icon_movie.svg" alt="영상">
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 카페 & 장소 안내 -->
-      <div class="section">
-        <h2 class="section-title">카페 &amp; 장소 안내</h2>
-
-        <div class="cafe-card">
-          <div class="cafe-header">
-            <div class="cafe-name-row">
-              <span class="cafe-emoji">☕️</span>
-              <span class="cafe-name">테라로사</span>
-            </div>
-            <span class="external-link">
-              <img src="assets/icon_external_link.svg" alt="외부 링크">
-            </span>
-          </div>
-          <p class="cafe-desc">한옥 대형카페, 황남동</p>
-        </div>
-
-        <div class="cafe-card">
-          <div class="cafe-header">
-            <div class="cafe-name-row">
-              <span class="cafe-emoji">☕️</span>
-              <span class="cafe-name">1894사랑채</span>
-            </div>
-            <span class="external-link">
-              <img src="assets/icon_external_link.svg" alt="외부 링크">
-            </span>
-          </div>
-          <p class="cafe-desc">
-            황리단길 한옥 카페<br>
-            단체 예약 가능(조별로 온돌룸 예약해도 될 듯)<br>
-            온돌룸(2~10인) 8개, 홀예약(15~20인) 1개
-          </p>
-        </div>
-
-        <div class="cafe-card">
-          <div class="cafe-header">
-            <div class="cafe-name-row">
-              <span class="cafe-emoji">🥖</span>
-              <span class="cafe-name">최영화빵 황리단길점</span>
-            </div>
-            <span class="external-link">
-              <img src="assets/icon_external_link.svg" alt="외부 링크">
-            </span>
-          </div>
-          <p class="cafe-desc">
-            경주빵 , 18:00시 영업 종료이므로 미리 사전 주문 필요<br>
-            10개(14,000)
-          </p>
-        </div>
-
-        <div class="cafe-card">
-          <div class="cafe-header">
-            <div class="cafe-name-row">
-              <span class="cafe-emoji">🥖</span>
-              <span class="cafe-name">월지빵</span>
-            </div>
-            <span class="external-link">
-              <img src="assets/icon_external_link.svg" alt="외부 링크">
-            </span>
-          </div>
-          <p class="cafe-desc">
-            월지소금빵, 황리단길 18:00시 영업 종료 &amp; 100박스 한정이므로 사전 주문 필요<br>
-            10개(17,000)
-          </p>
-        </div>
-
-        <div class="cafe-card">
-          <div class="cafe-header">
-            <div class="cafe-name-row">
-              <span class="cafe-emoji">🥖</span>
-              <span class="cafe-name">경주얼굴빵 황리단길맛집</span>
-            </div>
-            <span class="external-link">
-              <img src="assets/icon_external_link.svg" alt="외부 링크">
-            </span>
-          </div>
-          <p class="cafe-desc">
-            경주얼굴빵 들고 대릉원 셀피 유명, 황리단길<br>
-            흑임자2+고구마2 = 8,500
-          </p>
-        </div>
-      </div>
-
-      <!-- Bottom illustration -->
-      <img class="illust-bottom" src="assets/illust_bottom.png" alt="">
-
-      <!-- CTA Button -->
-      <button class="btn-cta">플준위에게 편지 남기기</button>
-
     </div>
+
+    <!--
+      Bottom illustrations.
+      Both positioned relative to the 400px content area (centered at x=312 in the 1024px Figma frame).
+      illust_b: Figma x_rel=0  → css left = 0-312 = -312px
+      illust_t: Figma x_rel=100 → css left = 100-312 = -212px
+      Both bottom-align (y_bottom ≈ 2532 in the 2576px Figma frame).
+    -->
+    <div class="illusts-wrapper">
+      <img class="illust-b" src="assets/illust_bottom.png" alt="">
+      <img class="illust-t" src="assets/illust_top.png" alt="">
+    </div>
+
+    <!-- CTA -->
+    <button class="btn-cta">플준위에게 편지 남기기</button>
+
   </div>
 </body>
 </html>
