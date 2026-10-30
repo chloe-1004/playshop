@@ -16,18 +16,16 @@
 
     /*
      * .page: 풀 너비, 배경 레이어
-     *  1. bg_ellipses.png – 100% auto로 너비 기준 스케일
-     *  2. linear-gradient – 흰색(0~474px) → #fff4ea(575px~)
-     *  3. background-color: #ffffff
+     *  1. bg_ellipses.png – 알록달록 라디얼 그라디언트 (100% 너비 기준 스케일)
+     *  2. background-color: #ffffff – 흰색 베이스
+     *  (#FFF5EA 솔리드 레이어는 피그마에서 제거됨)
      */
     .page {
       width: 100%;
       background-color: #ffffff;
-      background-image:
-        url(assets/bg_ellipses.png),
-        linear-gradient(to bottom, #ffffff 0px, #ffffff 474px, #fff4ea 575px);
-      background-position: 0 0, 0 0;
-      background-size: 100% auto, 100% 100%;
+      background-image: url(assets/bg_ellipses.png);
+      background-position: 0 0;
+      background-size: 100% auto;
       background-repeat: no-repeat;
     }
 
